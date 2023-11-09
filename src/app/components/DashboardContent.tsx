@@ -1,6 +1,10 @@
+import { Card, Col, Row } from 'antd';
+
+
 interface DashboardContentProps {
   selectedMenuItem: number;
 }
+
 
 const DashboardContent: React.FC<DashboardContentProps> = ({ selectedMenuItem }) => {
     // Use the key to dynamically change content
@@ -21,7 +25,48 @@ const DashboardContent: React.FC<DashboardContentProps> = ({ selectedMenuItem })
         content = 'Unknown Content';
     }
   
-    return <div>{content}</div>;
+    return <div>
+      
+      
+      {content}
+      
+<Row gutter={24}>
+    <Col span={24}>
+      <Card title="Card title" bordered={false}>
+        Card content
+      </Card>
+    </Col>
+    
+    
+  </Row>
+
+  <br/>  
+  <br/> 
+
+  <Row gutter={16}>
+    <Col span={8}>
+      <Card title="Card title" bordered={false}>
+        Card content
+      </Card>
+    </Col>
+    <Col span={8}>
+      <Card title="Card title" bordered={false}>
+        Card content
+      </Card>
+    </Col>
+    <Col span={8}>
+      <Card title="Card title" bordered={false}>
+        Card content
+      </Card>
+    </Col>
+  </Row>
+      
+      
+      </div>;
   };
 
   export default DashboardContent;
+
+
+
+  
