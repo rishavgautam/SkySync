@@ -1,5 +1,6 @@
 import { Card, Col, Row } from 'antd';
-
+import { useState , useEffect} from 'react';
+import { apiClient } from '../../utils/apiClient';
 
 interface DashboardContentProps {
   selectedMenuItem: number;
@@ -7,10 +8,29 @@ interface DashboardContentProps {
 
 
 const DashboardContent: React.FC<DashboardContentProps> = ({ selectedMenuItem }) => {
+
+
+  const [response, setResponse] = useState('');
+  const [url, setUrl] = useState('v1/bpi/currentprice.json'); // Relative path
+
+  const fetchData = async () => {
+    try {
+      const result = await apiClient(url, "GET"); 
+      setResponse(result);
+    } catch (error) {
+      console.error('An error occurred:', error);
+      // Handle the error, display a message, or perform other actions as needed
+    }
+  };
+
+
+  useEffect(() => {
+    fetchData(); // Call fetchData when the component mounts
+  }, []); 
+
+
     // Use the key to dynamically change content
-    let content = '';
-    console.log(selectedMenuItem)
-  
+    let content = '';  
     switch (selectedMenuItem) {
       case 1:
         content = 'Dashboard Content';

@@ -55,7 +55,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
                             <div className="col-md-6">
                                 <div className="dailyNumbers">
                                     H: {item.high} <span className="tempDegree">&#176;</span>
-                                    L : {item.low} <span className="tempDegree">&#176;</span>
+                                     &nbsp; L: {item.low} <span className="tempDegree">&#176;</span>
                                 </div>
                             </div>
 

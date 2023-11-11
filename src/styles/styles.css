@@ -58,6 +58,7 @@ background-color: #1b2038;
 }
 .dailyNumbers{
     text-align: end;
+    font-size: 0.9em;
 }
 .tempVal{
     text-align: end;
