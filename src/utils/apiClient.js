@@ -1,19 +1,19 @@
-// const BASE_URL = '/api/genericApi';
-const BASE_URL = 'https://api.coindesk.com/';
 
-const TIMEOUT = 10000; // 10 seconds (adjust as needed)
-const validMethods = ['GET', 'POST', 'PUT', 'DELETE']; // Define valid HTTP methods
+
+const BASE_URL = 'http://api.weatherapi.com/v1/';
+const KEY = process.env.NEXT_PUBLIC_WEATHER_KEY
+const TIMEOUT = 10000;
+const validMethods = ['GET', 'POST', 'PUT', 'DELETE'];
 
 export const apiClient = async (path, method = 'GET', data = null) => {
-  const apiUrl = `${BASE_URL}${path}`;
-
+  const apiUrl = `${BASE_URL}${path}&key=${KEY}`;
   const getValidMethod = (method) => {
     if (validMethods.includes(method)) {
       return method;
     }
     // Provide a default method (e.g., GET) or handle the error as needed
     console.error('Invalid HTTP method:', method);
-    return 'GET'; // Fallback to a safe default
+    return 'GET';
   };
 
   const options = {
@@ -26,7 +26,7 @@ export const apiClient = async (path, method = 'GET', data = null) => {
 
   try {
     const response = await Promise.race([
-      fetch(apiUrl, options),
+      // fetch(apiUrl, options),
       new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Request timed out')), TIMEOUT)
       ),

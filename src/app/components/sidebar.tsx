@@ -1,44 +1,45 @@
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
 
 interface SidebarProps {
-    onMenuClick: (key: number) => void;
+    onMenuClick: (item: any) => void;
   }
 
-// export default function Sidebar() {
 const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
-
     const [selectedMenuItem, setSelectedMenuItem] = useState<number>(1);
-
-
-    const handleMenuClick = (key: number) => {
-        setSelectedMenuItem(key);
-        onMenuClick(key)
+    const handleMenuClick = (item: any) => {
+        if(item!=null){
+            setSelectedMenuItem(item.key);
+            onMenuClick(item)
+        }
     };
 
+    useEffect(() => {
+      handleMenuClick(items[0])
+    }, [])
+    
 
     const items: any[] = [
-        { key: 1, label: 'My Location', temperature: 16, condition: 'Cloudy', high: 6, low: 2 },
-        { key: 2, label: 'Bangkok', temperature: 32, condition: 'Storm', high: 40, low: 23 },
-        { key: 3, label: 'Kathmandu', temperature: 18, condition: 'Sunny', high: 26, low: 12 },
+        { key: 1, location: 'Greensboro', temperature: 16, condition: 'Cloudy', high: 6, low: 2 },
+        { key: 2, location: 'Bangkok', temperature: 32, condition: 'Storm', high: 40, low: 23 },
+        { key: 3, location: 'Kathmandu', temperature: 18, condition: 'Sunny', high: 26, low: 12 },
     ];
+
     return (
         <Sider trigger={null} width={250}>
             <div className="logo" />
-
-            <Menu mode="inline" theme="dark" defaultSelectedKeys={['1']}
-                selectedKeys={[selectedMenuItem.toString()]}
-            >
+            <Menu mode="inline" theme="dark" defaultSelectedKeys={[items[0].key.toString()]}
+                selectedKeys={[selectedMenuItem.toString()]}>
+                
                 {items.map((item) => (
                     <Menu.Item key={item.key} icon={item.icon} 
-                    onClick={() => handleMenuClick(item.key)}>
+                    onClick={() => handleMenuClick(item)}>
 
                         <div className="topSection row ">
                             <div className="col-md-8">
                                 <h5>
-                                    {item.label}
+                                    {item.location}
                                 </h5>
                             </div>
                             <div className="col-md-4">
