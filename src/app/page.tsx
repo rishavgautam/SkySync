@@ -1,23 +1,23 @@
 "use client";
 
 import { Layout, Menu } from 'antd';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './components/sidebar';
 import DashboardContent from './components/DashboardContent';
 const { Header, Content } = Layout;
 
 export default function Home() {
-  const [selectedMenuItem, setSelectedMenuItem] = useState<number>(1);
+  const [selectedMenuItem, setSelectedMenuItem] = useState<any>({});
 
-  const handleMenuClick = (key: number) => {
-    setSelectedMenuItem(key);
+  const handleMenuClick = (item: any) => {
+    setSelectedMenuItem(item);
   };
-
+  
+  
   return (
     <Layout className="layout">
-
       <Sidebar onMenuClick={handleMenuClick} />
-      <Layout className="site-layout">
+      <Layout className="site-layout mainBodyComponent">
         <Header
           className="site-layout-background"
           style={{

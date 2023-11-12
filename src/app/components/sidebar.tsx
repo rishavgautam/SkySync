@@ -1,70 +1,107 @@
-import { Menu } from "antd";
+import { apiClient } from "@/utils/apiClient";
+import { Menu, Spin } from "antd";
 import Sider from "antd/es/layout/Sider";
 import React, { useEffect, useState } from 'react';
 
 interface SidebarProps {
     onMenuClick: (item: any) => void;
-  }
+}
 
 const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
+    const moment = require('moment');
     const [selectedMenuItem, setSelectedMenuItem] = useState<number>(1);
+    const [duplicateCheck, setDuplicateCheck] = useState<any[]>([])
+    const [isLoading, setLoading] = useState<boolean>(true)
+    const [locationBasedData, setLocationBasedData] = useState<any[]>([]);
+
     const handleMenuClick = (item: any) => {
-        if(item!=null){
-            setSelectedMenuItem(item.key);
+        if (item != null) {
+            setSelectedMenuItem(item.location.name);
             onMenuClick(item)
         }
     };
 
     useEffect(() => {
-      handleMenuClick(items[0])
+        if(locationBasedData.length>0){
+            handleMenuClick(locationBasedData[0])
+        }
+    }, [locationBasedData])
+
+
+
+    const fetchData = async (locationName: string) => {
+        if (!duplicateCheck.includes(locationName)) {
+            duplicateCheck.push(locationName)
+            const param = `forecast.json?q=${locationName}&days=7&aqi=yes`
+            try {
+                const result = await apiClient(param, "GET");
+                setLocationBasedData(prevData => [...prevData, result]);
+            } catch (error) {
+                console.error('An error occurred:', error);
+            }
+        }
+    };
+
+    useEffect(() => {
+        const locations: any[] = ['Greensboro', 'Bangkok', 'Kathmandu', 'Olympia']
+        locations.forEach(item => {
+            fetchData(item)
+        });
+        setLoading(false)
     }, [])
+
     
-
-    const items: any[] = [
-        { key: 1, location: 'Greensboro', temperature: 16, condition: 'Cloudy', high: 6, low: 2 },
-        { key: 2, location: 'Bangkok', temperature: 32, condition: 'Storm', high: 40, low: 23 },
-        { key: 3, location: 'Kathmandu', temperature: 18, condition: 'Sunny', high: 26, low: 12 },
-    ];
-
     return (
         <Sider trigger={null} width={250}>
             <div className="logo" />
-            <Menu mode="inline" theme="dark" defaultSelectedKeys={[items[0].key.toString()]}
-                selectedKeys={[selectedMenuItem.toString()]}>
-                
-                {items.map((item) => (
-                    <Menu.Item key={item.key} icon={item.icon} 
-                    onClick={() => handleMenuClick(item)}>
+            {!isLoading && locationBasedData.length > 0 ? (
+                <Menu mode="inline" theme="dark" 
+                defaultSelectedKeys={[locationBasedData[0].location.name.toString()]}
+                    selectedKeys={[selectedMenuItem.toString()]}
+                    >
+                    {locationBasedData.map((item) => (
+                        <Menu.Item key={item.location.name} icon={item.icon}
+                            onClick={() => handleMenuClick(item)}>
+                            <div className="topSection row ">
+                                <div className="col-md-8">
+                                    <h5>
+                                        {item.location.name}
+                                        <p className="sidebarLocalTime">
+                                        {moment(item.location.localtime, 'YYYY-MM-DD HH:mm').format('hh:mm A')}
 
-                        <div className="topSection row ">
-                            <div className="col-md-8">
-                                <h5>
-                                    {item.location}
-                                </h5>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="tempVal">
-                                    {item.temperature} <span className="tempDegree">&#176;</span>
+                                        </p>
+                                    </h5>
+                                </div>
+                                <div className="col-md-4">
+                                    <div className="tempVal">
+                                        {Math.floor(item.current.temp_f)} <span className="tempDegree">&#176;</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className=" bottomSection row">
-                            <div className="col-md-6">
-                                {item.condition}
-                            </div>
-
-                            <div className="col-md-6">
-                                <div className="dailyNumbers">
-                                    H: {item.high} <span className="tempDegree">&#176;</span>
-                                     &nbsp; L: {item.low} <span className="tempDegree">&#176;</span>
+                            <div className=" bottomSection row">
+                                <div className="col-md-6 ">
+                                    {item.current.condition.text}
                                 </div>
+
+                                <div className="col-md-6">
+                                    <div className="dailyNumbers">
+                                        H: {Math.floor(item.forecast.forecastday[0].day.maxtemp_f)} <span className="tempDegree">&#176;</span>
+                                        &nbsp; L: {Math.floor(item.forecast.forecastday[0].day.maxtemp_f)} <span className="tempDegree">&#176;</span>
+                                    </div>
+                                </div>
+
+
                             </div>
+                        </Menu.Item>
+                    ))}
+                </Menu>
+            )
+                :
+                <div className="spinner">
+                    <Spin />
+                </div>
+            }
 
-
-                        </div>
-                    </Menu.Item>
-                ))}
-            </Menu>
         </Sider>
 
     )
