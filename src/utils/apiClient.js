@@ -26,7 +26,7 @@ export const apiClient = async (path, method = 'GET', data = null) => {
 
   try {
     const response = await Promise.race([
-      // fetch(apiUrl, options),
+      fetch(apiUrl, options),
       new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Request timed out')), TIMEOUT)
       ),
