@@ -1,7 +1,11 @@
 import { apiClient } from "@/utils/apiClient";
+import { SimplifiedWeatherCondition } from "@/utils/currentConditionMapping";
 import { Menu, Spin } from "antd";
 import Sider from "antd/es/layout/Sider";
 import React, { useEffect, useState } from 'react';
+import TemperatureConverter from "./TempConverter";
+import { GetCacheValue, SetCacheValue } from '../../utils/cacheServiceHelper';
+
 
 interface SidebarProps {
     onMenuClick: (item: any) => void;
@@ -13,6 +17,8 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
     const [duplicateCheck, setDuplicateCheck] = useState<any[]>([])
     const [isLoading, setLoading] = useState<boolean>(true)
     const [locationBasedData, setLocationBasedData] = useState<any[]>([]);
+    const [unitType, setUnitType] = useState<string>();
+
 
     const handleMenuClick = (item: any) => {
         if (item != null) {
@@ -22,7 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
     };
 
     useEffect(() => {
-        if(locationBasedData.length>0){
+        if (locationBasedData.length > 0) {
             handleMenuClick(locationBasedData[0])
         }
     }, [locationBasedData])
@@ -43,22 +49,28 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
     };
 
     useEffect(() => {
-        const locations: any[] = ['Greensboro', 'Bangkok', 'Kathmandu', 'Olympia']
-        locations.forEach(item => {
-            fetchData(item)
-        });
+        var existingCache = GetCacheValue('UnitType')
+        if(existingCache===undefined){
+            SetCacheValue('UnitType', 'F')
+        }
+        else{
+            setUnitType(existingCache?.toString())
+        }
+        const locations: any[] = ['Greensboro', 'Bangkok', 'Kathmandu', 'Olympia', 'Antartica']
+        locations.sort();
+        locations.map(item => fetchData(item));
         setLoading(false)
     }, [])
 
-    
+
     return (
         <Sider trigger={null} width={250}>
             <div className="logo" />
             {!isLoading && locationBasedData.length > 0 ? (
-                <Menu mode="inline" theme="dark" 
-                defaultSelectedKeys={[locationBasedData[0].location.name.toString()]}
+                <Menu mode="inline" theme="dark"
+                    defaultSelectedKeys={[locationBasedData[0].location.name.toString()]}
                     selectedKeys={[selectedMenuItem.toString()]}
-                    >
+                >
                     {locationBasedData.map((item) => (
                         <Menu.Item key={item.location.name} icon={item.icon}
                             onClick={() => handleMenuClick(item)}>
@@ -67,26 +79,36 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
                                     <h5>
                                         {item.location.name}
                                         <p className="sidebarLocalTime">
-                                        {moment(item.location.localtime, 'YYYY-MM-DD HH:mm').format('hh:mm A')}
+                                            {moment(item.location.localtime, 'YYYY-MM-DD HH:mm').format('hh:mm A')}
 
                                         </p>
                                     </h5>
                                 </div>
                                 <div className="col-md-4">
                                     <div className="tempVal">
-                                        {Math.floor(item.current.temp_f)} <span className="tempDegree">&#176;</span>
+
+                                        <TemperatureConverter temperatureValue={item.current.temp_f} unit={unitType} requireDegree={true} />
+
+                                        {/* {Math.floor(item.current.temp_f)} <span className="tempDegree">&#176;</span> */}
                                     </div>
                                 </div>
                             </div>
                             <div className=" bottomSection row">
-                                <div className="col-md-6 ">
-                                    {item.current.condition.text}
+                                <div className="col-md-6 current_condition_sidebar">
+                                    {SimplifiedWeatherCondition(item.current.condition.text)}
                                 </div>
 
                                 <div className="col-md-6">
                                     <div className="dailyNumbers">
-                                        H: {Math.floor(item.forecast.forecastday[0].day.maxtemp_f)} <span className="tempDegree">&#176;</span>
-                                        &nbsp; L: {Math.floor(item.forecast.forecastday[0].day.maxtemp_f)} <span className="tempDegree">&#176;</span>
+                                        H:
+                                        <TemperatureConverter temperatureValue={item.forecast.forecastday[0].day.maxtemp_f} unit={unitType} requireDegree={true} />
+
+                                        {/* {Math.floor(item.forecast.forecastday[0].day.maxtemp_f)} <span className="tempDegree">&#176;</span> */}
+                                        &nbsp; L: 
+
+                                            <TemperatureConverter temperatureValue={item.forecast.forecastday[0].day.mintemp_f} unit={unitType} requireDegree={true} />
+
+                                            {/* {Math.floor(item.forecast.forecastday[0].day.maxtemp_f)} <span className="tempDegree">&#176;</span> */}
                                     </div>
                                 </div>
 

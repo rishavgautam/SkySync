@@ -8,6 +8,7 @@ const { Header, Content } = Layout;
 
 export default function Home() {
   const [selectedMenuItem, setSelectedMenuItem] = useState<any>({});
+  const [tempType, setTempType] = useState<number>(0);
 
   const handleMenuClick = (item: any) => {
     setSelectedMenuItem(item);
