@@ -109,6 +109,11 @@
     margin-top: 50%;
 }
 
+.spinner-body {
+    text-align: center;
+    margin-top: 10%;
+}
+
 .dailyForecastDetails {
     color: white;
     background: #272e3a;
@@ -189,9 +194,25 @@
 
 .ant-card-head{
     border-bottom: 1px solid #5c5e74!important;
+    margin-left: 10px;
+    margin-right: 10px;
 
+}
+
+.ant-card-head-title{
+    margin-left: -20px;
 }
 
 p{
     color: #ffff!important;
+}
+
+.temperatureSetting{
+    color: black!important;
+    font-size: 1em;
+    font-weight: 600;
+
+}
+.tempDegree_settings{
+    margin-left: 2px;
 }

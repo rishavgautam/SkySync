@@ -130,3 +130,9 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
 }
 
 export default Sidebar;
+
+
+
+interface AppProviderProps {
+    children: React.ReactNode;
+  }

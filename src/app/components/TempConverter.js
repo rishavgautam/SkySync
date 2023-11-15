@@ -16,8 +16,9 @@ const TemperatureConverter = ({ temperatureValue, unit, requireDegree }) => {
 
     return (
         <span>
-            {Math.floor(convertedValue)} {requireDegree ? '°' : ''}
-            {/* &nbsp; <span className="tempDegree">&#176;</span> */}
+            {Math.floor(convertedValue)} {requireDegree ? 
+            <span className="tempDegree">&#176;</span> 
+            : ''}
         </span>
     );
 };
