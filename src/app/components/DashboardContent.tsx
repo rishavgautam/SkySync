@@ -1,4 +1,4 @@
-import { Button, Card, Col, Flex, Modal, Row, Slider, Spin, Tooltip } from 'antd';
+import { Button, Card, Col, Divider, Flex, Modal, Row, Slider, Spin, Tooltip } from 'antd';
 import { useState, useEffect } from 'react';
 import { apiClient } from '../../utils/apiClient';
 import { SimplifiedWeatherCondition } from '../../utils/currentConditionMapping';
@@ -149,29 +149,44 @@ const DashboardContent: React.FC<DashboardContentProps> = ({ selectedMenuItem })
                       <div className='col-md-2'>
                         <div className="card-content-item">{dayName}</div>
                       </div>
-                      <div className='col-md-1'>
-
-                        <img src={isAnimated ? '/animated/' : '/static/' + TextToImg(item.day.condition.text)}
-                          alt={item.day.condition.text} width={50} height={45} />
-
+                      <div className='col-md-2'>
+                        <div className='card-content-item'>
+                          <img src={isAnimated ? '/animated/' : '/static/' + TextToImg(item.day.condition.text)}
+                            alt={item.day.condition.text} width={40} height={35} />
+                        </div>
 
                       </div>
 
-                      <div className='col-md-3 pushRight'>
-                        <div className="">
+                      <div className='col-md-2'>
+                        <div className="card-content-item pushRight">
                           <TemperatureConverter temperatureValue={item.day.mintemp_f} unit={unitType} requireDegree={false} />
                         </div>
 
                       </div>
 
                       <div className='col-md-4'>
+                        <div className='card-content-item'>
+                          <Slider range defaultValue={
+                            unitType === 'C' ?
+                              [item.day.mintemp_c, item.day.maxtemp_c]
+                              :
+                              [item.day.mintemp_f, item.day.maxtemp_f]
+                          }
+                            min={unitType === 'C' ? (item.day.mintemp_c - 3) : (item.day.mintemp_f - 10)}
+                            max={unitType === 'C' ? (item.day.maxtemp_c + 4) : (item.day.maxtemp_f + 20)}
 
-                        <Slider range defaultValue={[item.day.mintemp_f, item.day.maxtemp_f]} />
+                            style={{ pointerEvents: 'none' }}
+                          />
+
+                        </div>
 
                       </div>
                       <div className='col-md-2'>
+                        <div className='card-content-item'>
                         <TemperatureConverter temperatureValue={item.day.maxtemp_f} unit={unitType} requireDegree={false} />
+                        </div>
                       </div>
+                      <hr className='custom-divider' />
 
                     </div>
                   )

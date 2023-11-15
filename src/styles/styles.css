@@ -131,8 +131,9 @@
 }
 
 .card-content-item {
-    margin-right: 15px;
-    margin-bottom: 20px;
+    margin-right: 5px;
+    margin-bottom: 8px;
+    margin-top: 4px    
 }
 
 .ant-card-body {
@@ -215,4 +216,27 @@ p{
 }
 .tempDegree_settings{
     margin-left: 2px;
+}
+
+.ant-slider-handle {
+    display: none; /* Hide the slider handle */
+  }
+
+  .custom-divider{
+    margin-bottom: 5px!important;
+    margin-top: -6px;
+
+  }
+
+
+.ant-slider .ant-slider-rail {
+    position: absolute;
+    background-color: #647693;
+    border-radius: 2px;
+    height: 5px;
+    transition: background-color 0.2s;
+}
+
+.ant-slider-horizontal .ant-slider-track, .ant-slider-horizontal .ant-slider-tracks{
+    height: 5px;
 }

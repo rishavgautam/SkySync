@@ -56,7 +56,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
         else{
             setUnitType(existingCache?.toString())
         }
-        const locations: any[] = ['Greensboro', 'Bangkok', 'Kathmandu', 'Olympia', 'Antartica']
+        const locations: any[] = ['Greensboro', 'Bangkok', 'Kathmandu', 'Olympia', 'Melbourne']
         locations.sort();
         locations.map(item => fetchData(item));
         setLoading(false)
