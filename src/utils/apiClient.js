@@ -1,12 +1,24 @@
+import { GetCacheValue } from "./cacheServiceHelper";
 
+const Weather_URL = 'http://api.weatherapi.com/v1/';
+const AQI_URL = 'https://api.waqi.info/feed/'
 
-const BASE_URL = 'http://api.weatherapi.com/v1/';
-const KEY = process.env.NEXT_PUBLIC_WEATHER_KEY
+const Weather_KEY = GetCacheValue('WeatherToken')
+const AQI_KEY = GetCacheValue('AQIToken')
 const TIMEOUT = 10000;
 const validMethods = ['GET', 'POST', 'PUT', 'DELETE'];
 
-export const apiClient = async (path, method = 'GET', data = null) => {
-  const apiUrl = `${BASE_URL}${path}&key=${KEY}`;
+export const apiClient = async (path, method = 'GET', data = null, isAqi = false) => {
+  let apiUrl = '';
+  if(isAqi){
+    const aqiApiUrl = `${AQI_URL}${path}/?token=${AQI_KEY}`;
+    apiUrl = aqiApiUrl
+  }
+  else{
+    const weatherApiUrl = `${Weather_URL}${path}&key=${Weather_KEY}`;
+    apiUrl = weatherApiUrl
+  }
+
   const getValidMethod = (method) => {
     if (validMethods.includes(method)) {
       return method;

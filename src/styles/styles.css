@@ -13,7 +13,7 @@
 .ant-menu-dark .ant-menu-item-selected {
     background-color: rgba(255, 255, 255, .15);
     backdrop-filter: blur(5px);
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(200, 200, 255, 0.8));
+    background: #6a6b79;
     padding-left: 10px;
 
 }
@@ -117,6 +117,7 @@
 .dailyForecastDetails {
     color: white;
     background: #272e3a;
+    /* background: #bdc0c259; */
     max-width: 1100px;
     overflow-x: scroll;
 }
@@ -158,7 +159,16 @@
     background: #272e3a!important;
     max-width: 1100px;
     overflow-x: scroll;
+    min-height: 34vh;
 
+}
+
+.dashboardSmallBlocks{
+    color: white;
+    background: #272e3a!important;
+    max-width: 1100px;
+    overflow-x: scroll;
+    min-height: 15.5vh;
 }
 
 .ant-menu-item-selected .ant-menu-title-content{
@@ -212,6 +222,7 @@ p{
     color: black!important;
     font-size: 1em;
     font-weight: 600;
+    margin-bottom: 4px;
 
 }
 .tempDegree_settings{
@@ -233,10 +244,25 @@ p{
     position: absolute;
     background-color: #647693;
     border-radius: 2px;
-    height: 5px;
     transition: background-color 0.2s;
 }
 
 .ant-slider-horizontal .ant-slider-track, .ant-slider-horizontal .ant-slider-tracks{
     height: 5px;
+}
+
+.customSize{
+    width: 50%;
+}
+
+.bigFont {
+    font-size: 2.0em;
+}
+
+.dailyInfo{
+    font-size: 14px;
+}
+
+.dailyInfo .card-content-item{
+    padding-bottom: 6px;
 }
