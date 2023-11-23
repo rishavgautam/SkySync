@@ -1,6 +1,6 @@
 import { GetCacheValue } from "./cacheServiceHelper";
 
-const Weather_URL = 'http://api.weatherapi.com/v1/';
+const Weather_URL = 'https://api.weatherapi.com/v1/';
 const AQI_URL = 'https://api.waqi.info/feed/'
 
 const Weather_KEY = GetCacheValue('WeatherToken')
