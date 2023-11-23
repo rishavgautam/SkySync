@@ -15,6 +15,7 @@ interface DashboardContentProps {
   selectedMenuItem: any;
 }
 
+
 const DashboardContent: React.FC<DashboardContentProps> = ({ selectedMenuItem }) => {
   const moment = require('moment');
   const [response, setResponse] = useState('');
@@ -54,7 +55,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({ selectedMenuItem })
 
       const currDate = GetLocalTime(result?.location?.tz_id);
       const fullDayRecords = result.forecast.forecastday.slice(0, 2)
-        .flatMap(day => day.hour).filter(x => x.time > currDate).slice(0, 24);
+        .flatMap((day:any) => day.hour).filter((x:any) => x.time > currDate).slice(0, 24);
       setDailyData(fullDayRecords);
 
       if (result?.current?.air_quality?.pm2_5 === undefined) {
