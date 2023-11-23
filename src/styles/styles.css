@@ -266,3 +266,8 @@ p{
 .dailyInfo .card-content-item{
     padding-bottom: 6px;
 }
+
+.customTagSize{
+    margin-bottom: 2%;
+    font-size: 1.0em;
+}

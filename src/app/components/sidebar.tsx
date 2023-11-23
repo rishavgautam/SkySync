@@ -54,16 +54,27 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
 
     useEffect(() => {
         var existingCache = GetCacheValue('UnitType')
-        if(existingCache===undefined){
+        var existingLocation = GetCacheValue('Locations')
+        if (existingCache === undefined) {
             SetCacheValue('UnitType', 'F')
         }
-        else{
+        else {
             setUnitType(existingCache?.toString())
         }
-        const locations: any[] = ['Greensboro', 'Bangkok', 'Kathmandu', 'Olympia', 'Melbourne']
-        locations.sort();
-        locations.map(item => fetchData(item));
-        setLoading(false)
+
+        const locations: string = existingLocation || ''
+        if (locations !== '' || locations !== undefined) {
+            const locationArray: string[] = locations.split(',');
+            locationArray.map(item => fetchData(item));
+            setLoading(false)
+        }
+        else {
+            fetchData("New York")
+            setLoading(false)
+        }
+
+
+
     }, [])
 
 
@@ -108,11 +119,11 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
                                         <TemperatureConverter temperatureValue={item.forecast.forecastday[0].day.maxtemp_f} unit={unitType} />
 
                                         {/* {Math.floor(item.forecast.forecastday[0].day.maxtemp_f)} <span className="tempDegree">&#176;</span> */}
-                                        &nbsp; L: 
+                                        &nbsp; L:
 
-                                            <TemperatureConverter temperatureValue={item.forecast.forecastday[0].day.mintemp_f} unit={unitType} />
+                                        <TemperatureConverter temperatureValue={item.forecast.forecastday[0].day.mintemp_f} unit={unitType} />
 
-                                            {/* {Math.floor(item.forecast.forecastday[0].day.maxtemp_f)} <span className="tempDegree">&#176;</span> */}
+                                        {/* {Math.floor(item.forecast.forecastday[0].day.maxtemp_f)} <span className="tempDegree">&#176;</span> */}
                                     </div>
                                 </div>
 

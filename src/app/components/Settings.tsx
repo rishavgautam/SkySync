@@ -1,6 +1,7 @@
 import { SetCacheValue, GetCacheValue } from '@/utils/cacheServiceHelper';
-import { Button, Input, Modal, Switch } from 'antd'
+import { Button, Input, Modal, Switch, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
+import TagInput from './tagInput'
 
 
 interface SettingsContentProps {
@@ -17,10 +18,25 @@ const Settings: React.FC<SettingsContentProps> = ({ openModal }) => {
   const [showAnimations, setShowAnimations] = useState(false); // Set default to Celsius
   const [weatherToken, setWeatherToken] = useState<string>('');
   const [AQIToken, setAQIToken] = useState<string>('');
+  const [inputValue, setInputValue] = useState('');
+  const [locations, setLocations] = useState<string[]>([]);
 
-  // const handleOk = () => {
-  //   setOpen(false);
-  // };
+
+  const handleInputTagChange = (e: any) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleInputTagConfirm = () => {
+    if (inputValue && locations.indexOf(inputValue) === -1) {
+      setLocations([...locations, inputValue]);
+    }
+    setInputValue('');
+  };
+
+  const handleTagClose = (removedTag: any) => {
+    const updatedTags = locations.filter(tag => tag !== removedTag);
+    setLocations(updatedTags);
+  };
 
   const handleCancel = () => {
     setOpen(false);
@@ -33,12 +49,19 @@ const Settings: React.FC<SettingsContentProps> = ({ openModal }) => {
     const showAnimation = GetCacheValue('ShowAnimations')
     const weatherKey = GetCacheValue('WeatherToken')
     const aqiKey = GetCacheValue('AQIToken')
+    const cachedLocations = GetCacheValue('Locations') || ''
+
+
+    const locationArray: string[] = cachedLocations.split(',');
+
+
 
     setIsCelsius(val === 'C' ? true : false)
     setShowDegreeUnit(showDegree === 'true' ? true : false)
     setShowAnimations(showAnimation === 'true' ? true : false)
     setWeatherToken(weatherKey ?? '')
     setAQIToken(aqiKey ?? '')
+    setLocations(locationArray)
 
     setOpen(openModal)
   }, [openModal])
@@ -51,6 +74,8 @@ const Settings: React.FC<SettingsContentProps> = ({ openModal }) => {
     SetCacheValue('ShowDegree', showDegreeUnit.toString());
     SetCacheValue('WeatherToken', weatherToken);
     SetCacheValue('AQIToken', AQIToken);
+    SetCacheValue('Locations', locations);
+
     window.location.reload();
 
     setOpen(false);
@@ -108,6 +133,29 @@ const Settings: React.FC<SettingsContentProps> = ({ openModal }) => {
       <p className='temperatureSetting'>AQI Token</p>
       <div>
         <Input value={AQIToken} onChange={(e) => setAQIToken(e.target.value)} />
+      </div>
+
+      <br />
+      <p className='temperatureSetting'>Cities</p>
+      <div>
+        {locations.map(tag => (
+          <Tag className='customTagSize'
+            key={tag}
+            closable
+            onClose={() => handleTagClose(tag)}
+          >
+            {tag}
+          </Tag>
+
+        ))}
+
+        <Input
+          type="text"
+          value={inputValue}
+          onChange={handleInputTagChange}
+          onBlur={handleInputTagConfirm}
+          onPressEnter={handleInputTagConfirm}
+        />
       </div>
     </Modal>
   );
