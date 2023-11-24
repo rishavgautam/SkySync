@@ -194,7 +194,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({ selectedMenuItem })
         <br />
         <br />
 
-        <Row gutter={16}>
+        <Row gutter={16} className='weatherBottomRow'>
           {forecast?.forecastday ? (
             <Col span={8}>
               <Card title="Weekly Forecast" className='weeklyForecastData' bordered={false}>
