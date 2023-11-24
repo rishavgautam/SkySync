@@ -168,7 +168,7 @@
     color: white;
     background: #272e3a!important;
     max-width: 1100px;
-    overflow-x: scroll;
+    overflow-x: hidden;
     min-height: 15.5vh;
 }
 
