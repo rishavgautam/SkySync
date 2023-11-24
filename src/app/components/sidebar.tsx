@@ -39,7 +39,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
 
 
     const fetchData = async (locationName: string) => {
-        console.log(locationName)
         if (!duplicateCheck.includes(locationName)) {
             duplicateCheck.push(locationName)
             const param = `forecast.json?q=${locationName}&days=7&aqi=yes`
@@ -64,7 +63,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
         }
 
         const locations: string = existingLocation || ''
-        console.log(locations)
         if (locations !== '' && locations !== undefined) {
             const locationArray: string[] = locations.split(',');
             locationArray.map(item => fetchData(item));
