@@ -27,7 +27,7 @@
 
 .ant-menu .ant-menu-item {
     /* padding-top: 16px; */
-    margin-top: 5px!important;
+    margin-top: 5px !important;
     height: 80px;
     border-radius: 0px !important;
     /* border-bottom: 2px solid #343a40; */
@@ -80,7 +80,7 @@
 .currenData {
     color: white;
     text-align: center;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .current_temp {
@@ -135,110 +135,113 @@
 .card-content-item {
     margin-right: 5px;
     margin-bottom: 8px;
-    margin-top: 4px    
+    margin-top: 4px
 }
 
 .ant-card-body {
     padding: 15px 24px !important;
 }
 
-.ant-menu-title-content{
-    border-bottom: 1px solid #393b43!important;
+.ant-menu-title-content {
+    border-bottom: 1px solid #393b43 !important;
 }
 
-.sidebarLocalTime{
+.sidebarLocalTime {
     font-size: 0.5em;
 }
 
-.ant-menu-dark,.ant-menu {
+.ant-menu-dark,
+.ant-menu {
     color: rgba(255, 255, 255, 0.65);
     background: #1b2038;
 }
 
-.weeklyForecastData{
+.weeklyForecastData {
     color: white;
-    background: #272e3a!important;
+    background: #272e3a !important;
     max-width: 1100px;
     overflow-x: hidden;
     min-height: 34vh;
 
 }
 
-.dashboardSmallBlocks{
+.dashboardSmallBlocks {
     color: white;
-    background: #272e3a!important;
+    background: #272e3a !important;
     max-width: 1100px;
     overflow-x: hidden;
     min-height: 15.5vh;
 }
 
-.ant-menu-item-selected .ant-menu-title-content{
-    border-bottom: 0px solid #393b43!important;
+.ant-menu-item-selected .ant-menu-title-content {
+    border-bottom: 0px solid #393b43 !important;
 }
 
-.current_condition_sidebar{
+.current_condition_sidebar {
     text-transform: capitalize;
-    
+
 }
 
-.dashoardMainBody{
+.dashoardMainBody {
     min-height: 110vh;
 }
 
-.pushRight{
-    text-align: right!important;
+.pushRight {
+    text-align: right !important;
 }
 
 
 
-.card-content-hour{
+.card-content-hour {
     /* text-align: center; */
     padding-bottom: 15px;
     margin-left: 5px;
 }
 
-.card-content-temp{
+.card-content-temp {
     /* text-align: center; */
     padding-top: 5px;
     margin-left: 5px;
 
 }
 
-.ant-card-head{
-    border-bottom: 1px solid #5c5e74!important;
+.ant-card-head {
+    border-bottom: 1px solid #5c5e74 !important;
     margin-left: 10px;
     margin-right: 10px;
 
 }
 
-.ant-card-head-title{
+.ant-card-head-title {
     margin-left: -20px;
 }
 
-p{
-    color: #ffff!important;
+p {
+    color: #ffff !important;
 }
 
-.temperatureSetting{
-    color: black!important;
+.temperatureSetting {
+    color: black !important;
     font-size: 1em;
     font-weight: 600;
     margin-bottom: 4px;
 
 }
-.tempDegree_settings{
+
+.tempDegree_settings {
     margin-left: 2px;
 }
 
 .ant-slider-handle {
-    display: none; /* Hide the slider handle */
-  }
+    display: none;
+    /* Hide the slider handle */
+}
 
-  .custom-divider{
-    margin-bottom: 5px!important;
+.custom-divider {
+    margin-bottom: 5px !important;
     margin-top: -6px;
 
-  }
+}
 
 
 .ant-slider .ant-slider-rail {
@@ -248,11 +251,12 @@ p{
     transition: background-color 0.2s;
 }
 
-.ant-slider-horizontal .ant-slider-track, .ant-slider-horizontal .ant-slider-tracks{
+.ant-slider-horizontal .ant-slider-track,
+.ant-slider-horizontal .ant-slider-tracks {
     height: 5px;
 }
 
-.customSize{
+.customSize {
     width: 50%;
 }
 
@@ -260,15 +264,15 @@ p{
     font-size: 2.0em;
 }
 
-.dailyInfo{
+.dailyInfo {
     font-size: 14px;
 }
 
-.dailyInfo .card-content-item{
+.dailyInfo .card-content-item {
     padding-bottom: 6px;
 }
 
-.customTagSize{
+.customTagSize {
     margin-bottom: 2%;
     font-size: 1.0em;
 }
@@ -277,21 +281,19 @@ p{
     width: 91%;
 } */
 
-.ant-layout-content{
+.ant-layout-content {
     width: 95%;
 }
 
-
 body::-webkit-scrollbar {
-    width: 0.5em!important;
-  }
-  
-  body::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3)!important;
-  }
-  
-  body::-webkit-scrollbar-thumb {
-  background-color: darkgrey!important;
-  outline: 1px solid slategrey!important;
-  }
-  
+    width: 0.5em !important;
+}
+
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: darkgrey !important;
+    outline: 1px solid slategrey !important;
+}
