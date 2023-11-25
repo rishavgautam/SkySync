@@ -1,6 +1,6 @@
 import { apiClient } from "@/utils/apiClient";
 import { SimplifiedWeatherCondition } from "@/utils/currentConditionMapping";
-import { Menu, Spin } from "antd";
+import { Button, Input, Menu, Spin } from "antd";
 import Sider from "antd/es/layout/Sider";
 import React, { useEffect, useState } from 'react';
 import TemperatureConverter from "./TempConverter";
@@ -21,6 +21,10 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
     const [locationBasedData, setLocationBasedData] = useState<any[]>([]);
     const [localTime, setLocalTime] = useState<string>('');
     const [unitType, setUnitType] = useState<string>();
+
+
+    const [searchValue, setSearchValue] = useState('');
+
 
 
     const handleMenuClick = (item: any) => {
@@ -79,9 +83,36 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
     }, [])
 
 
+    const handleSearchInputChange = (e: any) => {
+        setSearchValue(e.target.value);
+    };
+
+    const addLocation = () => {
+        var existingLocation = GetCacheValue('Locations');
+        const locations: string = existingLocation || ''
+        if (locations !== '' && locations !== undefined) {
+            const locationArray: string[] = locations.split(',');
+            const newLocationArray: string[] = [...locationArray, searchValue]
+            SetCacheValue("Locations", newLocationArray);
+            window.location.reload()
+        }
+    };
+
+
     return (
         <Sider trigger={null} width={250} >
             <div className="logo" />
+            <br />
+            <div className="locationSearchBar">
+                <Input
+                    placeholder="Enter location"
+                    value={searchValue}
+                    onPressEnter={addLocation}
+                    onChange={handleSearchInputChange}
+                />
+            </div>
+            <br />
+
             {!isLoading && locationBasedData.length > 0 ? (
                 <Menu mode="inline" theme="dark"
                     defaultSelectedKeys={[locationBasedData[0].location.name.toString()]}

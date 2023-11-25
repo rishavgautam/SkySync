@@ -117,10 +117,9 @@
 .dailyForecastDetails {
     color: white;
     background: #272e3a;
-    /* background: #bdc0c259; */
     max-width: 100%;
     width: 100%;
-    overflow-x: hidden;
+    overflow-x: scroll auto;
 }
 
 .ant-card-head-title {
@@ -284,7 +283,7 @@ p {
 
 *::-webkit-scrollbar {
     width: 0.6em !important;
-    height: 0.6em!important;
+    height: 0.2em !important;
 }
 
 *::-webkit-scrollbar-track {
@@ -294,4 +293,21 @@ p {
 *::-webkit-scrollbar-thumb {
     background-color: darkgrey !important;
     outline: 1px solid rgb(112, 128, 144) !important;
+}
+
+.locationSearchBar input {
+    background-color: transparent !important;
+    color: white;
+    border-radius: 2;
+    border: 0.5px solid #999;
+
+}
+
+.locationSearchBar ::placeholder {
+    color: #999;
+    /* Change the color to your desired color */
+}
+
+.locationSearchBar {
+    margin: 0px 6px;
 }
