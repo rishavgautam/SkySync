@@ -43,7 +43,28 @@ const Settings: React.FC<SettingsContentProps> = ({ openModal }) => {
   };
 
 
+  // function getLocation() {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       function(position) {
+  //         console.log(position)
+  //         console.log('Latitude:', position.coords.latitude);
+  //         console.log('Longitude:', position.coords.longitude);
+  //         // You can do something with the retrieved coordinates here
+  //       },
+  //       function(error) {
+  //         console.error('Error getting geolocation:', error);
+  //         // Handle errors here
+  //       }
+  //     );
+  //   } else {
+  //     console.log('Geolocation is not supported in this browser.');
+  //     // Handle case where geolocation is not supported
+  //   }
+  // }
+
   useEffect(() => {
+    // getLocation()
     const val = GetCacheValue('UnitType')
     const showDegree = GetCacheValue('ShowDegree')
     const showAnimation = GetCacheValue('ShowAnimations')

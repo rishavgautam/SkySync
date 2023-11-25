@@ -165,7 +165,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({ selectedMenuItem })
                 <div className='card-content-scrollable'>
                   {dailyData.map((item: any) => {
                     const hour = moment(item.time, 'YYYY-MM-DD HH:mm').format('HH');
-                    const imageSrc = TextToImg(item.condition.text, item?.is_day)
+                    const imageSrc = TextToImg(item.condition.code, item?.is_day)
                     return (
                       <div key={item.time_epoch}>
                         <div className="card-content-hour">{hour}</div>
@@ -201,7 +201,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({ selectedMenuItem })
 
                 {forecast.forecastday.map((item: any) => {
                   const dayName = moment(item.date).format('ddd');
-                  const imageSrc = TextToImg(item.day.condition.text)
+                  const imageSrc = TextToImg(item.day.condition.code)
                   return (
                     <div className='row' key={item.date_epoch}>
                       <div className='col-md-2'>
@@ -259,7 +259,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({ selectedMenuItem })
 
           {/* Additional Data */}
           <Col span={8}>
-            <Card title="At a glance" className='weeklyForecastData' bordered={false}>
+            <Card title="At A Glance" className='weeklyForecastData' bordered={false}>
 
 
               {forecast &&
