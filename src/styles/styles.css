@@ -311,3 +311,12 @@ p {
 .locationSearchBar {
     margin: 0px 6px;
 }
+
+.ant-input-affix-wrapper{
+    background-color: transparent !important;
+   
+}
+
+.ant-input-suffix{
+    
+}

@@ -8,6 +8,9 @@ import { GetCacheValue, SetCacheValue } from '../../utils/cacheServiceHelper';
 import moment from "moment";
 import 'moment-timezone';
 import { GetLocalTime } from "@/utils/serviceHelper";
+import { InfoCircleOutlined, UserOutlined, SearchOutlined } from '@ant-design/icons';
+
+
 
 interface SidebarProps {
     onMenuClick: (item: any) => void;
@@ -105,10 +108,14 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
             <br />
             <div className="locationSearchBar">
                 <Input
-                    placeholder="Enter location"
+                    placeholder="Enter City"
                     value={searchValue}
                     onPressEnter={addLocation}
                     onChange={handleSearchInputChange}
+                    suffix={
+                          <SearchOutlined style={{ color: 'white' }} />
+                      }
+
                 />
             </div>
             <br />
